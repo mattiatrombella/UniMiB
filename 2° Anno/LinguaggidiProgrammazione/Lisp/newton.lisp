@@ -1,0 +1,36 @@
+;;; newton.lisp
+
+(defparameter *epsilon* 0.005)
+
+(defun absolute-value (v)
+  (cond ((minusp v) (- v))
+        ((zerop v) v)
+        ((plusp v) v)
+        ))
+
+(defun below-epsilon-p (x c)
+  (< (absolute-value (- x (* c c))) *epsilon*))
+
+(defun mean (x y) 
+  (/ (+ x y) 2))
+
+
+(defun improve (x c) 
+  (mean c (/ x c)))
+
+(defun newton-cycle (x c)
+  (if (below-epsilon-p x c)
+      c
+    (newton-cycle x (improve x c))))
+
+(defun newton-sqrt (x)
+  (newton-cycle x 1.0))
+
+
+
+
+
+
+
+
+;;; end of file newton.lisp
